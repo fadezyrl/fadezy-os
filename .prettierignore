@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+.next
+out
+coverage
+package-lock.json
+OSMobileApp
+supabase/.temp
+*.md

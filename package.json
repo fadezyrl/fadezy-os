@@ -1,0 +1,31 @@
+{
+  "name": "fadezy-os",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FADEZY OS — international multi-tenant SaaS for barbershops and beauty salons",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "packages/*"
+  ],
+  "scripts": {
+    "postinstall": "npm run build -w @fadezy/shared",
+    "dev:web": "npm run dev -w frontend",
+    "dev:api": "npm run dev -w backend",
+    "build": "npm run build -w @fadezy/shared && npm run build -w backend && npm run build -w frontend",
+    "build:shared": "npm run build -w @fadezy/shared",
+    "build:api": "npm run build -w @fadezy/shared && npm run build -w backend",
+    "build:web": "npm run build -w @fadezy/shared && npm run build -w frontend",
+    "lint": "npm run lint -w frontend && npm run lint -w backend",
+    "typecheck": "npm run typecheck -w @fadezy/shared && npm run typecheck -w backend && npm run typecheck -w frontend",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=22.11.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  }
+}
