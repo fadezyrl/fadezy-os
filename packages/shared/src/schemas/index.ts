@@ -3,3 +3,7 @@ export * from './business';
 export * from './catalog';
 export * from './team';
 export * from './schedule';
+export * from './booking';
+export * from './pos';
+export * from './notifications';
+export * from './insights';

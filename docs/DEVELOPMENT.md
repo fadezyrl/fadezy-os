@@ -114,6 +114,27 @@ node scripts/verify-phase05-team-api.mjs
 
 See `docs/TEAM.md`.
 
+## Working hours (Phase 06)
+
+```bash
+node scripts/apply-schedule-migration.mjs
+node scripts/verify-phase06-schedule-sql.mjs
+node scripts/verify-phase06-schedule-api.mjs
+```
+
+Web: `/workspace/:businessId/schedule`. Mobile: Workspace → Schedule. See `docs/WORKING-HOURS.md`.
+
+## Notifications (Phase 10)
+
+```bash
+node scripts/apply-notifications-migrations.mjs
+node scripts/provision-notify-worker-role.mjs
+node scripts/verify-phase10-notifications.mjs
+npm run dev:notify-worker
+```
+
+Web inbox: `/workspace/:businessId/notifications`. Worker uses `NOTIFY_WORKER_DATABASE_URL` only. See `docs/NOTIFICATIONS.md`.
+
 ## Running the frontend
 
 ```bash

@@ -35,7 +35,7 @@ export function createRateLimiter(options: {
       res.setHeader('Retry-After', String(retryAfterSec));
       sendError(res, 429, {
         code: API_ERROR_CODES.FORBIDDEN,
-        message: 'Too many authentication requests. Try again later.',
+        message: 'Too many requests. Try again later.',
       });
       return;
     }

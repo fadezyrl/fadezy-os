@@ -20,6 +20,10 @@ const envSchema = z.object({
   SUPABASE_ANON_KEY: z.string().optional().default(''),
   SUPABASE_SERVICE_ROLE_KEY: z.string().optional().default(''),
   DATABASE_URL: z.string().default(''),
+  /** Server-only fadezy_guest_rpc pooler URL for guest booking RPCs. Never expose to clients. */
+  GUEST_RPC_DATABASE_URL: z.string().default(''),
+  /** Server-only fadezy_notify_worker URL for notification delivery. Never use DATABASE_URL. */
+  NOTIFY_WORKER_DATABASE_URL: z.string().default(''),
   API_SERVICE_NAME: z.string().default('fadezy-api'),
   API_VERSION: z.string().default('0.1.0'),
   RESEND_API_KEY: z.string().optional().default(''),

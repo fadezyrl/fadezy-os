@@ -12,6 +12,7 @@
     "postinstall": "npm run build -w @fadezy/shared",
     "dev:web": "npm run dev -w frontend",
     "dev:api": "npm run dev -w backend",
+    "dev:notify-worker": "npm run dev:notify-worker -w backend",
     "build": "npm run build -w @fadezy/shared && npm run build -w backend && npm run build -w frontend",
     "build:shared": "npm run build -w @fadezy/shared",
     "build:api": "npm run build -w @fadezy/shared && npm run build -w backend",

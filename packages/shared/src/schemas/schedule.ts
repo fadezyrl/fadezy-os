@@ -59,12 +59,16 @@ function refineNoOverlaps(
   });
   for (const [, list] of byGroup) {
     for (let i = 0; i < list.length; i += 1) {
+      const left = list[i];
+      if (!left) continue;
       for (let j = i + 1; j < list.length; j += 1) {
-        if (intervalsOverlap(list[i], list[j])) {
+        const right = list[j];
+        if (!right) continue;
+        if (intervalsOverlap(left, right)) {
           ctx.addIssue({
             code: 'custom',
             message: 'Overlapping intervals are not allowed',
-            path: [list[j].index],
+            path: [right.index],
           });
         }
       }
@@ -144,9 +148,11 @@ export const putStaffScheduleInputSchema = z
 
     for (let i = 0; i < value.breaks.length; i += 1) {
       const brk = value.breaks[i];
+      if (!brk) continue;
       const dayIntervals = value.intervals.filter((item) => item.weekday === brk.weekday);
       const inside = dayIntervals.some(
-        (interval) => brk.startMinute >= interval.startMinute && brk.endMinute <= interval.endMinute,
+        (interval) =>
+          brk.startMinute >= interval.startMinute && brk.endMinute <= interval.endMinute,
       );
       if (!inside) {
         ctx.addIssue({

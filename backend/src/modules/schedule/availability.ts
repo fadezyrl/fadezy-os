@@ -59,6 +59,22 @@ export function localMinuteToUtc(
   return local.toUTC();
 }
 
+/**
+ * Half-open local calendar day [D 00:00, D+1 00:00) as UTC instants.
+ * Uses calendar-day arithmetic (not a fixed 24h duration) so DST 23h/25h days are correct.
+ */
+export function localDayUtcBounds(
+  dateIso: string,
+  timeZone: string,
+): { startUtc: DateTime; endUtc: DateTime } {
+  const startLocal = DateTime.fromISO(dateIso, { zone: timeZone }).startOf('day');
+  if (!startLocal.isValid) {
+    throw new Error(`Invalid date or timezone: ${dateIso} / ${timeZone}`);
+  }
+  const endLocal = startLocal.plus({ days: 1 });
+  return { startUtc: startLocal.toUTC(), endUtc: endLocal.toUTC() };
+}
+
 export function subtractBreaks(
   windows: MinuteInterval[],
   breaks: MinuteInterval[],

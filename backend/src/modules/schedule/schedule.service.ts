@@ -374,7 +374,11 @@ export async function putStaffSchedule(
   });
   if (error) mapDbError(error);
   const list = await loadScheduleDetails(client, [data]);
-  return list[0];
+  const created = list[0];
+  if (!created) {
+    throw new ScheduleServiceError('Schedule was created but could not be loaded', 'INTERNAL_ERROR', 500);
+  }
+  return created;
 }
 
 export async function listTimeOff(
@@ -461,25 +465,19 @@ export async function createTimeOff(
     throw new ScheduleServiceError('Invalid time-off range for timezone', 'VALIDATION_ERROR', 422);
   }
 
-  const { data, error } = await client
-    .from('staff_time_off')
-    .insert({
-      business_id: businessId,
-      membership_id: targetMembershipId,
-      location_id: input.locationId ?? null,
-      starts_at: startsAt,
-      ends_at: endsAt,
-      timezone,
-      is_full_day: isFullDay,
-      category: input.category,
-      reason: input.reason ?? null,
-      status: 'pending',
-      requested_by: userId,
-    })
-    .select('*')
-    .single();
+  const { data, error } = await client.rpc('create_staff_time_off_request', {
+    p_business_id: businessId,
+    p_membership_id: targetMembershipId,
+    p_location_id: input.locationId ?? null,
+    p_starts_at: startsAt,
+    p_ends_at: endsAt,
+    p_timezone: timezone,
+    p_is_full_day: isFullDay,
+    p_category: input.category,
+    p_reason: input.reason ?? null,
+  });
   if (error) mapDbError(error);
-  return mapTimeOff(data);
+  return mapTimeOff(data as never);
 }
 
 export async function reviewTimeOff(

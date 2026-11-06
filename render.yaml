@@ -1,0 +1,51 @@
+# FADEZY OS — Render Blueprint (API + notification worker)
+# Bind HTTP to 0.0.0.0:$PORT. Worker uses NOTIFY_WORKER_DATABASE_URL only.
+
+services:
+  - type: web
+    name: fadezy-api
+    runtime: node
+    rootDir: .
+    buildCommand: npm ci && npm run build -w @fadezy/shared && npm run build -w backend
+    startCommand: npm run start -w backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: GUEST_RPC_DATABASE_URL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        sync: false
+      - key: APP_PUBLIC_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+
+  - type: worker
+    name: fadezy-notify-worker
+    runtime: node
+    rootDir: .
+    buildCommand: npm ci && npm run build -w @fadezy/shared && npm run build -w backend
+    startCommand: npm run start:notify-worker -w backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NOTIFY_WORKER_DATABASE_URL
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        sync: false
+      - key: APP_PUBLIC_URL
+        sync: false
+      - key: NOTIFY_WORKER_POLL_MS
+        value: "5000"

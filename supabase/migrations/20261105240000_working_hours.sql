@@ -851,3 +851,14 @@ grant select on table public.staff_weekly_schedules to authenticated;
 grant select on table public.staff_weekly_intervals to authenticated;
 grant select on table public.staff_weekly_breaks to authenticated;
 grant select, insert, update on table public.staff_time_off to authenticated;
+
+-- Backfill location hour copies for existing locations (hours_mode remains inherit)
+do $$
+declare
+  r record;
+begin
+  for r in select id from public.business_locations
+  loop
+    perform public.copy_business_hours_to_location(r.id);
+  end loop;
+end $$;

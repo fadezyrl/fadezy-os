@@ -9,6 +9,11 @@ FADEZY OS is an international, multi-tenant SaaS platform for barbershops and be
 - Phase 03: business onboarding & multi-tenant tenancy (`businesses`, memberships, locations, RLS)
 - Phase 04: service catalog (categories, services, add-ons, location pricing; soft-archive; minor-unit money)
 - Phase 05: staff & team (invitations via Resend, staff profiles, location/service eligibility, soft removal)
+- Phase 06: working hours & availability foundations (Luxon TZ/DST, schedules, time off, context resolver; no booking)
+- Phase 07: booking engine (workspace + guest, snapshots, GiST exclusion, privilege-hardened RPCs)
+- Phase 08: customer CRM (directory, profile edit, soft archive, visit history; see `docs/CUSTOMERS.md`)
+- Phase 09: POS & payments (sales ledger, register sessions; tips deferred; see `docs/POS.md`)
+- Phase 10: Notifications (transactional outbox, Resend + in-app inbox, restricted worker; see `docs/NOTIFICATIONS.md`)
 
 ## Repository layout
 

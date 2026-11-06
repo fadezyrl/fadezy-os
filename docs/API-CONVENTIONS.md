@@ -115,6 +115,21 @@ Accept (authenticated): `POST /api/v1/invitations/accept` with `{ "token": "..."
 
 See `docs/TEAM.md`. Invitation tokens are hashed at rest; accept uses `auth.uid()` only.
 
+## Schedule APIs (Phase 06)
+
+Under `/api/v1/businesses/:businessId`: operating hours, location hours, schedule exceptions, staff schedules, time-off, and `GET /availability/context` (read-only resolver, no slots). See `docs/WORKING-HOURS.md`.
+
+## Notification APIs (Phase 10)
+
+Under `/api/v1/businesses/:businessId` (authenticated member):
+
+- `GET /notifications` — own in-app inbox
+- `POST /notifications/:notificationId/read` — mark read/unread
+- `GET /notification-preferences` — staff prefs with defaults (email off, in-app on)
+- `PATCH /notification-preferences` — upsert own prefs
+
+No client endpoint sends arbitrary notifications. See `docs/NOTIFICATIONS.md`.
+
 ## Localization expectations
 
 Request/response payloads that carry money, dates, or phone numbers should eventually include explicit currency, timezone, locale, and E.164 phone fields rather than assuming a single market default.
